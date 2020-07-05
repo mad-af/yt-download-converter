@@ -19,7 +19,7 @@ class Appliance{
     }
 
     getFileYouTube(req, res) {
-        var data = req.query.url
+        var {data} = req.query
         var title = []
         const getTitle= () => {
             return new Promise((resolve, reject)=>{
@@ -31,18 +31,12 @@ class Appliance{
             })
         }
         const getFile= () => {
-            console.log(title);
-            // const file = fs.createWriteStream(title[0]+'.mp3')
-            res.header("content-disposition", 'attachment; filename='+title[0]+'.mp3');    
-            ytdl(data, {filter:'audioonly', format:'mp3'}).pipe(res);
-            // http.get(ytdl(data, {filter:'audioonly', format:'mp3'}), (response) => {
-            //     console.log(response);
-            //     response.pipe(file) });
+            res.header("content-disposition", 'attachment; filename='+title[0]+'.mp3') 
+            ytdl(data, {filter:'audioonly', format:'mp3'}).pipe(res)
         }
         async function init(){
             await getTitle()
             getFile()
-            console.log('SELESAI');
         }
         init()
     }

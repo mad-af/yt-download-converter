@@ -13,6 +13,8 @@ class Service {
         let Data = []
         const getData = await appliance.getDataYoutube(data) 
         await !getData ? Data.push('can not find list project', null) : Data.push(null, getData)
+        console.log(getData.data.items);
+        
         return callBack(Data[0], Data[1])
     }
 }
